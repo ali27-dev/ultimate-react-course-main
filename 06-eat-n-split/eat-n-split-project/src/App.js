@@ -24,6 +24,8 @@ function App() {
     <div className="app">
       <div className="sidebar">
         <FriendList />
+        <FormAddFriend />
+        <Button>Add Friend</Button>
       </div>
     </div>
   );
@@ -47,28 +49,42 @@ function Friend({ friend }) {
     <li>
       <img src={friend.image} alt={friend.id} />
       <h3>{friend.name}</h3>
-      <p>
-        {friend.balance < 0 && (
-          <p className="red">
-            You owe {friend.name} {Math.abs(friend.balance)}
-          </p>
-        )}
-      </p>
-      <p>
-        {friend.balance > 0 && (
-          <p className="green">
-            You owe {friend.name} {Math.abs(friend.balance)}
-          </p>
-        )}
-      </p>
-      <p>
-        {friend.balance === 0 && (
-          <p>
-            You owe {friend.name} {Math.abs(friend.balance)}
-          </p>
-        )}
-      </p>
-      <button className="button">Select</button>
+
+      {friend.balance < 0 && (
+        <p className="red">
+          You owe {friend.name} {Math.abs(friend.balance)}€
+        </p>
+      )}
+
+      {friend.balance > 0 && (
+        <p className="green">
+          {friend.name} owes you {Math.abs(friend.balance)}€
+        </p>
+      )}
+
+      {friend.balance === 0 && <p>You and {friend.name} are even</p>}
+      <Button>Select</Button>
     </li>
+  );
+}
+function Button({ children }) {
+  return <button className="button">{children}</button>;
+}
+function FormAddFriend() {
+  return (
+    <>
+      <div className="form">
+        <form className="form-add-friend">
+          <label htmlFor="">👯‍♂️ Friend name</label>
+          <input type="text" />
+          <label htmlFor="">🌄 Image URL</label>
+          <input
+            type="text"
+            placeholder={"https://i.pravatar.cc/48?u=499476"}
+          />
+          <Button>Add</Button>
+        </form>
+      </div>
+    </>
   );
 }
