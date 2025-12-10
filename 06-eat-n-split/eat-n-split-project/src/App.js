@@ -37,7 +37,7 @@ function App() {
     setShowAddFriend((show) => !show);
   }
   function handleAddFriends(friend) {
-    setFriends((friend) => [...friend, friend]);
+    setFriends((friends) => [...friends, friend]);
     setShowAddFriend(false);
   }
   function handleSelection(friend) {
@@ -63,6 +63,7 @@ function App() {
           friends={friends}
           seletedFriend={seletedFriend}
           onSelection={handleSelection}
+          key={friends.id}
         />
         {showAddFriend && <FormAddFriend onAddFriends={handleAddFriends} />}
         <Button onClick={handleClickEvent}>
@@ -88,8 +89,8 @@ function FriendList({ friends, seletedFriend, onSelection }) {
         <Friend
           friend={friend}
           seletedFriend={seletedFriend}
-          key={friend.id}
           onSelection={onSelection}
+          key={friend.id}
         />
       ))}
     </ul>
@@ -127,7 +128,7 @@ function FormAddFriend({ onAddFriends }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48?u=499476");
 
-  function handleSubmit(e) {
+  function handleAddSubmit(e) {
     e.preventDefault();
 
     if (!name || !image) return;
@@ -149,7 +150,7 @@ function FormAddFriend({ onAddFriends }) {
   return (
     <>
       <div className="form">
-        <form className="form-add-friend" onSubmit={handleSubmit}>
+        <form className="form-add-friend" onSubmit={handleAddSubmit}>
           <label htmlFor="">👬 Friend name</label>
           <input
             type="text"
